@@ -10,9 +10,12 @@ export class DataServiceService {
   constructor(private http: HttpClient) { }
 
   getBalance(userId: string): Observable<any> {
-    // 'http://35.247.172.56:8080/users/a/balances'
-    // const url = 'http://www.mocky.io/v2/5d565ebd300000360030a9c1';
-    // return this.http.get(url);
-    return of(20000);
+    const url = 'http://35.247.172.56:8080/users/' + userId + '/balances';
+    return this.http.get(url);
+
+    // const mockUrl = 'http://www.mocky.io/v2/5d565ebd300000360030a9c1';
+    // return this.http.get(mockUrl);
+
+    // return of(20000);
   }
 }

@@ -19,15 +19,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     console.log('hello');
-    this.balance$ = this.dataService.getBalance('1');
+    this.balance$ = this.dataService.getBalance('b');
     // this.getBalance(this.userAccount.userId);
   }
 
   getBalance(userId: string): void {
-    // this.balance$ = this.dataService.getBalance(userId);
-    this.dataService.getBalance(userId).subscribe(data =>
-      console.log(data.balance) );
-    console.log(this.balance);
+    this.balance$ = this.dataService.getBalance(userId);
   }
 
 }

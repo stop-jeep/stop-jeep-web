@@ -1,14 +1,20 @@
-<nav class="navbar navbar-expand-lg">
-    <a href="#" class="navbar-brand logo">STOP JEEP</a>
-    <button class="btn btn-main ml-auto">log out</button>
-</nav>
+ <div class="container">
+  <nav class="navbar navbar-expand-lg">
+      <a href="#" class="navbar-brand logo">STOP JEEP</a>
+      <button class="btn btn-main ml-auto">log out</button>
+  </nav>
 
-<h2>Your Balance</h2>
-<div class="container">
-    <div class="card card-bg">
-        <div class="card-body mt-auto">
-        <h3>MR. JEEP</h3>
-        <h1> {{ balance$ | async }}</h1>
+
+  <div class="container box-content">
+      <h2 class="title-text">Your Account</h2>
+      <div class="container box-detail">
+        <h6 class="detail-text">Name: MR. Jeep</h6>
+        <h6 class="detail-text">Amount: </h6>
+        <div class="card card-bg">
+            <div class="card-body mt-auto">
+            <p class="balance-text"> {{ (balance$ | async).balance }}  Baht</p>
+            </div>
         </div>
-    </div>
+      </div>
+  </div>
 </div>
