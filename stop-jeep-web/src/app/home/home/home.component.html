@@ -1,18 +1,40 @@
  <div class="container">
   <nav class="navbar navbar-expand-lg">
       <a href="#" class="navbar-brand logo">STOP JEEP</a>
-      <button class="btn btn-main ml-auto">log out</button>
+      <button class="btn btn-main ml-auto">Log out</button>
   </nav>
 
 
   <div class="container box-content">
-      <h2 class="title-text">Your Account</h2>
+      <h2 class="title-text">{{ name }}</h2>
+      <h2 class="subtitle-text">Total: </h2>
       <div class="container box-detail">
-        <h6 class="detail-text">Name: MR. Jeep</h6>
-        <h6 class="detail-text">Amount: </h6>
         <div class="card card-bg">
             <div class="card-body mt-auto">
             <p class="balance-text"> {{ (balance$ | async).balance }}  Baht</p>
+            </div>
+        </div>
+      </div>
+  </div>
+
+  <div class="container box-content">
+      <h2 class="subtitle-text">Total balance at: </h2>
+      <div class="container box-detail">
+        <div class="card card-bg">
+            <div class="card-body mt-auto">
+                <div class="col mx-3" style="max-width:360px;">
+                    <div class="border" *ngIf="showCalendar">
+                      <dl-date-time-picker
+                        [(maxView)]="maxView"
+                        [(minView)]="minView"
+                        [(startView)]="startView"
+                        [(minuteStep)]="minuteStep"
+                        [(ngModel)]="selectedDate"
+                        (change)="onCustomDateChange($event)"></dl-date-time-picker>
+                    </div>
+                    <p>Selected Date: {{ selectedDateUTC }}</p>
+                    <p class="balance-text"> {{ (balanceByDateTime$ | async).totalBalance }}  Baht</p>
+                  </div>
             </div>
         </div>
       </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DataServiceService } from 'src/app/data-service.service';
 import { Observable } from 'rxjs';
 import { BankAccount } from 'src/app/bankAcccount';
+import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -11,20 +13,30 @@ import { BankAccount } from 'src/app/bankAcccount';
 export class HomeComponent implements OnInit {
   public balance: number;
   private userAccount: BankAccount;
+  private name: String;
+
+  maxView = 'year';
+  minuteStep = 5;
+  minView = 'minute';
+  selectedDate: Date;
+  selectedDateUTC: string;
+  showCalendar = true;
+  startView = 'day';
+  views = ['minute', 'hour', 'day', 'month', 'year'];
   balance$: Observable<any>;
+  balanceByDateTime$: Observable<any>;
 
   constructor(
     private dataService: DataServiceService
   ) { }
 
   ngOnInit() {
-    console.log('hello');
+    this.name = 'Mr. Jeep';
     this.balance$ = this.dataService.getBalance('b');
-    // this.getBalance(this.userAccount.userId);
   }
 
-  getBalance(userId: string): void {
-    this.balance$ = this.dataService.getBalance(userId);
+  onCustomDateChange(event: DlDateTimePickerChange<Date>) {
+    this.selectedDateUTC = moment.utc(this.selectedDate).format('YYYY-MM-DDTHH:mm:ss');
+    this.balanceByDateTime$ = this.dataService.getBalanceByDateTime('b', this.selectedDateUTC);
   }
-
 }
