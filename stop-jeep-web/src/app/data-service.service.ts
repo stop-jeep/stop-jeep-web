@@ -12,10 +12,10 @@ export class DataServiceService {
   getBalance(userId: string): Observable<any> {
     const url = 'http://35.247.172.56:8080/users/' + userId + '/balances';
     return this.http.get(url);
+  }
 
-    // const mockUrl = 'http://www.mocky.io/v2/5d565ebd300000360030a9c1';
-    // return this.http.get(mockUrl);
-
-    // return of(20000);
+  getBalanceByDateTime(userId: string, dateTime: string): Observable<any> {
+    const url = `http://35.247.172.56:8080/users/${userId}/balances?dateTime=${dateTime}`;
+    return this.http.get(url);
   }
 }

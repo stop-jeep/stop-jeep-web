@@ -1,3 +1,6 @@
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~open-iconic/font/css/open-iconic-bootstrap.css';
+
 .logo {
     color: white;
     font-weight: 500;
@@ -17,8 +20,14 @@
 
 .title-text {
   color: rgb(187, 187, 187);
-  font-weight: 100;
+  font-weight: 600;
   font-size: 3rem;
+}
+
+.subtitle-text {
+  color: rgb(187, 187, 187);
+  font-weight: 300;
+  font-size: 2rem;
 }
 
 .box-detail {
@@ -45,6 +54,11 @@
   font-weight: 200;
 }
 .balance-text {
-  font-size: 5.5rem;
+  font-size: 4rem;
   color: #ee8127;
+}
+
+.image {
+  border-radius: 50%;
+  width: 60px;
 }
