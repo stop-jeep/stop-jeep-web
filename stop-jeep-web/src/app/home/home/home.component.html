@@ -15,7 +15,7 @@
       <div class="container box-detail">
         <div class="card card-bg">
             <div class="card-body mt-auto">
-            <p class="balance-text"> {{ (balance$ | async).balance }}  Baht</p>
+            <p class="balance-text"> {{ balance$ }}  Baht</p>
             </div>
         </div>
       </div>
@@ -37,7 +37,7 @@
                         (change)="onCustomDateChange($event)"></dl-date-time-picker>
                     </div>
                     <p>Selected Date: {{ selectedDateUTC }}</p>
-                    <p class="balance-text"> {{ (balanceByDateTime$ | async).totalBalance }}  Baht</p>
+                    <p class="balance-text"> {{ balanceByDateTime$ }}  Baht</p>
                   </div>
             </div>
         </div>
