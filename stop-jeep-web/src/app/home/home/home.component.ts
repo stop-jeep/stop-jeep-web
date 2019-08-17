@@ -4,10 +4,10 @@ import { Observable } from 'rxjs';
 import { BankAccount } from 'src/app/bankAcccount';
 import { DlDateTimePickerChange } from 'angular-bootstrap-datetimepicker';
 import * as moment from 'moment';
-import {AuthService} from '../../auth.service';
-import {Location} from '@angular/common';
-import {FirebaseUserModel} from '../../user.model';
-import {ActivatedRoute} from '@angular/router';
+import { AuthService } from '../../auth.service';
+import { Location } from '@angular/common';
+import { FirebaseUserModel } from '../../user.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
   public balance: number;
   private userAccount: BankAccount;
   private name: String;
+  private balanceInterval: any;
   user: FirebaseUserModel = new FirebaseUserModel();
 
   maxView = 'year';
@@ -35,7 +36,7 @@ export class HomeComponent implements OnInit {
     public authService: AuthService,
     private dataService: DataServiceService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
   ) { }
 
   ngOnInit() {
@@ -46,15 +47,29 @@ export class HomeComponent implements OnInit {
       }
     })
     this.name = this.user.name;
-    this.balance$ = this.dataService.getBalance(this.user.email);
+
+    this.getBalancesByUserId();
+
+    this.balanceInterval = setInterval(() => {
+      this.getBalancesByUserId();
+    }, 1000);
+  }
+
+  private getBalancesByUserId() {
+    this.dataService.getBalance(this.user.email).subscribe(data => this.balance$ = data.balance);
+    this.dataService.getBalanceByDateTime(this.user.email, this.selectedDateUTC).subscribe(data => this.balanceByDateTime$ = data.totalBalance);
+  }
+
+  ngOnDestroy() {
+    clearInterval(this.balanceInterval);
   }
 
   onCustomDateChange(event: DlDateTimePickerChange<Date>) {
     this.selectedDateUTC = moment.utc(this.selectedDate).format('YYYY-MM-DDTHH:mm:ss');
-    this.balanceByDateTime$ = this.dataService.getBalanceByDateTime(this.user.email, this.selectedDateUTC);
+    this.dataService.getBalanceByDateTime(this.user.email, this.selectedDateUTC).subscribe(data => this.balanceByDateTime$ = data.totalBalance);
   }
 
-  logout(){
+  logout() {
     this.authService.doLogout()
       .then((res) => {
         this.location.back();
