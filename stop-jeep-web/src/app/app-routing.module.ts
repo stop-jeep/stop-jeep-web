@@ -9,7 +9,7 @@ import {HomeResolver} from './home/home/home.resolver';
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],  resolve: { data: HomeResolver}}
+  { path: 'home', component: HomeComponent,  resolve: { data: HomeResolver}}
 ];
 
 @NgModule({

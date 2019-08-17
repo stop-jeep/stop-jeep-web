@@ -46,12 +46,12 @@ export class HomeComponent implements OnInit {
       }
     })
     this.name = this.user.name;
-    this.balance$ = this.dataService.getBalance('b');
+    this.balance$ = this.dataService.getBalance(this.user.email);
   }
 
   onCustomDateChange(event: DlDateTimePickerChange<Date>) {
     this.selectedDateUTC = moment.utc(this.selectedDate).format('YYYY-MM-DDTHH:mm:ss');
-    this.balanceByDateTime$ = this.dataService.getBalanceByDateTime('b', this.selectedDateUTC);
+    this.balanceByDateTime$ = this.dataService.getBalanceByDateTime(this.user.email, this.selectedDateUTC);
   }
 
   logout(){
