@@ -48,16 +48,11 @@ export class HomeComponent implements OnInit {
     })
     this.name = this.user.name;
 
-    this.getBalancesByUserId();
+    this.dataService.getBalance(this.user.email).subscribe(data => this.balance$ = data.balance);
 
     this.balanceInterval = setInterval(() => {
-      this.getBalancesByUserId();
-    }, 1000);
-  }
-
-  private getBalancesByUserId() {
-    this.dataService.getBalance(this.user.email).subscribe(data => this.balance$ = data.balance);
-    this.dataService.getBalanceByDateTime(this.user.email, this.selectedDateUTC).subscribe(data => this.balanceByDateTime$ = data.totalBalance);
+      this.dataService.getBalance(this.user.email).subscribe(data => this.balance$ = data.balance);
+    }, 500);
   }
 
   ngOnDestroy() {
